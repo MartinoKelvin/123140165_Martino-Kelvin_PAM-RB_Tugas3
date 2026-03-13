@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.DrawableResource
 import pertemuan3.composeapp.generated.resources.Res
-import pertemuan3.composeapp.generated.resources.hero
+import pertemuan3.composeapp.generated.resources.hero~
 
 
 data class Product(

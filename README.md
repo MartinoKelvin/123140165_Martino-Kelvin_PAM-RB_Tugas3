@@ -1,3 +1,7 @@
+![1773432244950](image/README/1773432244950.png)
+
+
+
 This is a Kotlin Multiplatform project targeting Android, iOS.
 
 * [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
