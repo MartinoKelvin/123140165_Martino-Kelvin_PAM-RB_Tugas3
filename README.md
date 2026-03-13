@@ -1,3 +1,9 @@
+Bonus (+10%) Implementasi animasi (AnimatedVisibility)
+![1773433105108](image/README/1773433105108.png)
+
+
+hasil aplikasi 
+
 ![1773432244950](image/README/1773432244950.png)
 
 

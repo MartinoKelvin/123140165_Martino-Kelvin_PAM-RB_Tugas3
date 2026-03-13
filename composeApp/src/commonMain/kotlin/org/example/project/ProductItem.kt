@@ -1,5 +1,8 @@
 package org.example.project
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,7 +15,11 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.DrawableResource
 import pertemuan3.composeapp.generated.resources.Res
-import pertemuan3.composeapp.generated.resources.hero~
+import pertemuan3.composeapp.generated.resources.hero
+import androidx.compose.animation.*
+import androidx.compose.animation.core.tween
+import androidx.compose.runtime.*
+import kotlinx.coroutines.delay
 
 
 data class Product(
@@ -25,46 +32,50 @@ data class Product(
 @Composable
 fun ProductItem(product: Product) {
 
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp)
+    var visible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(100)
+        visible = true
+    }
+
+    AnimatedVisibility(
+        visible = visible,
+        enter = slideInVertically(
+            initialOffsetY = { it },
+            animationSpec = tween(600)
+        ) + fadeIn(animationSpec = tween(600)) + scaleIn(
+            initialScale = 0.8f,
+            animationSpec = tween(600)
+        )
     ) {
 
-        Row(
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(8.dp)
         ) {
 
-            Image(
-                painter = painterResource(product.imageRes),
-                contentDescription = product.name,
+            Row(
                 modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(4.dp))
-            )
+                    .padding(12.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column {
-
-                Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.titleMedium
+                Image(
+                    painter = painterResource(product.imageRes),
+                    contentDescription = product.name,
+                    modifier = Modifier.size(80.dp)
                 )
 
-                Text(
-                    text = product.desc,
-                    style = MaterialTheme.typography.bodySmall
-                )
+                Spacer(modifier = Modifier.width(12.dp))
 
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = product.price,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Column {
+                    Text(product.name, style = MaterialTheme.typography.titleMedium)
+                    Text(product.desc, style = MaterialTheme.typography.bodySmall)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(product.price)
+                }
             }
         }
     }
